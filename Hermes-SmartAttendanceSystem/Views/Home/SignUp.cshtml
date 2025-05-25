@@ -1,0 +1,129 @@
+﻿@model Hermes_SmartAttendanceSystem.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "SignUp";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign Up - PolyFlow</title>
+    <link rel="stylesheet" href="~/css/css.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="logo">
+                <img src="~/images/polyflow-logo.png" alt="PolyFlow Logo" />
+            </div>
+
+            <h2>Create your account</h2>
+            <p class="subtext">Fill in all required fields to register</p>
+
+            @if (!ViewData.ModelState.IsValid && ViewData.ModelState[string.Empty] != null)
+            {
+                <div class="validation-summary-errors">
+                    @ViewData.ModelState[string.Empty].Errors[0].ErrorMessage
+                </div>
+            }
+
+            <form asp-action="Register" method="post" novalidate>
+
+                <div>
+                    <label asp-for="DepartmentID"></label>
+                    <select asp-for="DepartmentID" asp-items="@(new SelectList(ViewBag.Departments, "DepartmentID", "DepartmentName"))">
+                        <option value="">-- Select Department --</option>
+                    </select>
+                    <span asp-validation-for="DepartmentID" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="PositionID"></label>
+                    <select asp-for="PositionID" asp-items="@(new SelectList(ViewBag.Positions, "PositionID", "PositionName"))">
+                        <option value="">-- Select Position --</option>
+                    </select>
+                    <span asp-validation-for="PositionID" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="EmployeeCN"></label>
+                    <input asp-for="EmployeeCN" placeholder="Employee Contact Number" />
+                    <span asp-validation-for="EmployeeCN" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="EmployeeEmail"></label>
+                    <input asp-for="EmployeeEmail" placeholder="Email Address" />
+                    <span asp-validation-for="EmployeeEmail" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Address"></label>
+                    <input asp-for="Address" placeholder="Address" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label>Join Date</label>
+                    <input type="text" value="@DateTime.Now.ToString("yyyy-MM-dd")" readonly class="readonly-input" />
+                </div>
+
+                <div>
+                    <label asp-for="Username"></label>
+                    <input asp-for="Username" placeholder="Username" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="UserPass"></label>
+                    <input asp-for="UserPass" placeholder="Password" type="password" />
+                    <span asp-validation-for="UserPass" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="ConfirmPassword"></label>
+                    <input asp-for="ConfirmPassword" placeholder="Confirm Password" type="password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="UserFN"></label>
+                    <input asp-for="UserFN" placeholder="First Name" />
+                    <span asp-validation-for="UserFN" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="UserLN"></label>
+                    <input asp-for="UserLN" placeholder="Last Name" />
+                    <span asp-validation-for="UserLN" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <label asp-for="UserRole"></label>
+                    <select asp-for="UserRole">
+                        <option value="">-- Select Role --</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Employee">Employee</option>
+                    </select>
+                    <span asp-validation-for="UserRole" class="text-danger"></span>
+                </div>
+
+                <button type="submit">Register</button>
+            </form>
+
+            <div class="footer-link">
+                Already have an account? <a asp-controller="Home" asp-action="Index">Log in</a>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@4.0.0/dist/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

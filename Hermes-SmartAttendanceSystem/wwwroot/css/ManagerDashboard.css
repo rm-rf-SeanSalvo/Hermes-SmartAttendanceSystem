@@ -1,0 +1,217 @@
+﻿/* Reset and base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f6f9;
+}
+
+/* Wrapper flex container fills entire viewport */
+.layout-wrapper {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    background-color: #2d3e50;
+    color: white;
+    transition: width 0.3s ease;
+    position: relative;
+    flex-shrink: 0; /* Prevent shrinking */
+    display: flex;
+    flex-direction: column;
+}
+
+    .sidebar.collapsed {
+        width: 60px;
+    }
+
+    /* Sidebar toggle button */
+    .sidebar .toggle-btn {
+        position: absolute;
+        top: 10px;
+        right: -15px;
+        background-color: #2d3e50;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        font-size: 18px;
+        z-index: 2;
+    }
+
+    /* Sidebar nav */
+    .sidebar .nav-links {
+        list-style: none;
+        padding: 60px 0 0 0;
+        flex-grow: 1;
+    }
+
+        .sidebar .nav-links li {
+            display: flex;
+            align-items: center;
+            transition: padding 0.3s ease;
+        }
+
+        .sidebar .nav-links a {
+            flex-grow: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            transition: opacity 0.3s ease;
+        }
+
+            .sidebar .nav-links a:hover {
+                background-color: #1b2734;
+            }
+
+/* Main content - flex-grow and fills remaining space */
+.dashboard-container {
+    flex-grow: 1;
+    padding: 30px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #f4f6f9;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+    .dashboard-header h2 {
+        font-size: 24px;
+        color: #333;
+    }
+
+.datetime-box {
+    text-align: right;
+    color: #666;
+}
+
+    .datetime-box .date {
+        font-size: 16px;
+    }
+
+    .datetime-box .time {
+        font-size: 14px;
+    }
+
+/* Cards */
+.dashboard-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1 1 200px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+    .card .label {
+        font-size: 14px;
+        color: #777;
+    }
+
+    .card .value {
+        font-size: 22px;
+        font-weight: bold;
+        color: #2d3e50;
+    }
+
+/* Main content split */
+.dashboard-content {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    min-height: 0; /* Needed for flex container scroll */
+    overflow: hidden;
+}
+
+/* Activity panel */
+.activity-panel {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1 1 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+    .activity-panel h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .activity-panel ul {
+        list-style: none;
+    }
+
+    .activity-panel li {
+        display: flex;
+        align-items: center;
+        padding: 6px 0;
+        font-size: 14px;
+        color: #555;
+    }
+
+    .activity-panel .icon {
+        margin-right: 10px;
+    }
+
+.checkin {
+    color: green;
+}
+
+.late {
+    color: orange;
+}
+
+.other {
+    color: gray;
+}
+
+/* Calendar */
+.calendar-panel {
+    flex: 2 1 500px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+    .calendar-panel h3 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+/* FullCalendar */
+#calendar {
+    font-size: 14px;
+    height: 100% !important; /* Force full height */
+}

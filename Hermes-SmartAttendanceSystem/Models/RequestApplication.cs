@@ -1,7 +1,9 @@
-﻿namespace Hermes_SmartAttendanceSystem.Models
+﻿using System.ComponentModel.DataAnnotations;
+namespace Hermes_SmartAttendanceSystem.Models
 {
     public class RequestApplication
     {
+        [Key]
         public int RequestApplicationID { get; set; }
         public int EmployeeID { get; set; }
         public DateTime? StartDate { get; set; }

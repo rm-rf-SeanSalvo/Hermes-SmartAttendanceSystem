@@ -1,7 +1,10 @@
-﻿namespace Hermes_SmartAttendanceSystem.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Hermes_SmartAttendanceSystem.Models
 {
     public class Employee
     {
+        [Key]
         public int EmployeeID { get; set; }
         public int DepartmentID { get; set; }
         public int PositionID { get; set; }

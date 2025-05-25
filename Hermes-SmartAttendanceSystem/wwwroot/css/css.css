@@ -82,3 +82,36 @@ button {
         color: #007bff;
         text-decoration: none;
     }
+
+
+.input-validation-error {
+    border: 1px solid red !important;
+    background-color: #ffe5e5;
+}
+
+.text-danger {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 4px;
+    display: block;
+}
+
+.validation-summary-errors {
+    background-color: #ffe5e5;
+    color: red;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid red;
+    border-radius: 5px;
+}
+
+input[type="text"].input-validation-error,
+input[type="password"].input-validation-error,
+select.input-validation-error {
+    background-color: #ffe5e5;
+    border-color: red;
+}
+
+.readonly-input {
+    background-color: #f0f0f0;
+}

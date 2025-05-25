@@ -1,0 +1,109 @@
+﻿@model Hermes_SmartAttendanceSystem.Models.ManagerDashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/ManagerDashboard.css" asp-append-version="true" />
+
+<div class="layout-wrapper" id="layoutWrapper">
+    <div id="sidebar" class="sidebar">
+        <button id="toggleSidebar" class="toggle-btn">&#x25C0;</button>
+        <ul class="nav-links">
+            <li><a asp-controller="Manager" asp-action="Dashboard">Dashboard</a></li>
+            <li><a asp-controller="Manager" asp-action="ShiftSettings">Shift Settings</a></li>
+            <li><a asp-controller="Manager" asp-action="EmployeeRequests">Employee Requests</a></li>
+            <li><a asp-controller="Manager" asp-action="AssignShift">Assign Shift</a></li>
+            <li><a asp-controller="Manager" asp-action="AttendanceHistory">Attendance History</a></li>
+            <li><a asp-controller="Auth" asp-action="Logout">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Dashboard Content -->
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h2>Welcome, Manager @Model.ManagerName</h2>
+            <div class="datetime-box">
+                <div class="date">@DateTime.Now.ToString("MMMM dd, yyyy")</div>
+                <div class="time">@DateTime.Now.ToString("hh:mm tt")</div>
+            </div>
+        </div>
+
+        <div class="dashboard-cards">
+            <div class="card">
+                <div class="label">Total Employees</div>
+                <div class="value">@Model.TotalEmployees</div>
+            </div>
+            <div class="card">
+                <div class="label">Shifts Today</div>
+                <div class="value">@Model.ShiftsToday</div>
+            </div>
+            <div class="card">
+                <div class="label">Late Employees</div>
+                <div class="value">@Model.LateEmployees</div>
+            </div>
+            <div class="card">
+                <div class="label">Pending Request</div>
+                <div class="value">@Model.PendingRequests</div>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="activity-panel">
+                <h3>Recent Activity</h3>
+                <ul>
+                    @foreach (var activity in Model.RecentActivities)
+                    {
+                        <li>
+                            <span class="icon">
+                                @if (activity.Type == "checkin")
+                                {
+                                    <span class="checkin">✔</span>
+                                }
+                                else if (activity.Type == "late")
+                                {
+                                    <span class="late">⚠</span>
+                                }
+                                else
+                                {
+                                    <span class="other">●</span>
+                                }
+                            </span>
+                            <span>@activity.Message</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <div class="calendar-panel">
+                <h3>Shift Calendar</h3>
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <script src="~/js/sidebarToggle.js" asp-append-version="true"></script>
+
+    <script>
+
+            document.addEventListener('DOMContentLoaded', function () {
+                    var calendarEl = document.getElementById('calendar');
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        initialView: 'dayGridMonth',
+                    height: 400,
+                        headerToolbar: {
+                            left: 'prev,next today',
+                            center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+                    events: @Html.Raw(Json.Serialize(Model.ShiftCalendarEvents))
+                    });
+        calendar.render();
+            });
+    </script>
+}

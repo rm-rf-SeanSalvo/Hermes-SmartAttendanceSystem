@@ -22,14 +22,15 @@ namespace Hermes_SmartAttendanceSystem.Data
 
         public async Task<User?> CheckUserLoginAsync(string username, string password)
         {
-            return await Users
+            var users = await Users
                 .FromSqlRaw("EXEC CheckUserLogin @Username = {0}, @Password = {1}", username, password)
                 .AsNoTracking()
-                .FirstOrDefaultAsync();
+                .ToListAsync();
+
+            return users.FirstOrDefault();
         }
 
     }
-
 
 }
 
